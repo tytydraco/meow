@@ -36,7 +36,6 @@ generate_archive() {
 
 cleanup() {
     rm -f "$ARCHIVE"
-    rm -f "$NEW_SELF"
     unset URL
     unset FORMAT
     unset QUALITY
@@ -82,6 +81,9 @@ process_folder() {
 
     log "Backing out..."
     cd ..
+	
+	log "Cleaning update files..."
+	rm -f "$NEW_SELF"
 }
 
 log "Starting self-upgrade..."
