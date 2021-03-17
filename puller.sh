@@ -16,8 +16,11 @@ self_update() {
     if ! cmp -s "$SELF" "$NEW_SELF"
     then
         cp "$NEW_SELF" "$SELF"
+		rm "$NEW_SELF"
         exec "./$SELF"
     fi
+	
+	rm "$NEW_SELF"
 }
 
 log() {
@@ -81,9 +84,6 @@ process_folder() {
 
     log "Backing out..."
     cd ..
-	
-	log "Cleaning update files..."
-	rm -f "$NEW_SELF"
 }
 
 log "Starting self-upgrade..."
