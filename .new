@@ -4,21 +4,8 @@ cd "$(dirname "$0")" || exit 1
 
 ARCHIVE=".archive"
 CONFIG=".config"
-NEW_SELF='.new'
 SEP="~"
 OUTPUT_FORMAT="%(title)s $SEP %(id)s.%(ext)s"
-SELF=$(basename "$0")
-SELF_URL="https://raw.githubusercontent.com/tytydraco/puller/main/puller.sh"
-
-self_update() {
-    curl -Ls "$SELF_URL" > "$NEW_SELF"
-    
-    if ! cmp -s "$SELF" "$NEW_SELF"
-    then
-        cp "$NEW_SELF" "$SELF"
-        exec "./$SELF"
-    fi
-}
 
 log() {
     echo -e "\e[1m\e[93m[*] $*\e[39m\e[0m"
@@ -36,7 +23,6 @@ generate_archive() {
 
 cleanup() {
     rm -f "$ARCHIVE"
-    rm -f "$NEW_SELF"
     unset URL
     unset FORMAT
     unset QUALITY
@@ -83,9 +69,6 @@ process_folder() {
     log "Backing out..."
     cd ..
 }
-
-log "Starting self-upgrade..."
-self_update
 
 find . -name "$CONFIG" -type f -printf '%h\n' | while read -r folder
 do
