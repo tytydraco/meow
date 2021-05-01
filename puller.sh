@@ -17,7 +17,7 @@ self_update() {
     then
         cp "$NEW_SELF" "$SELF"
 		rm "$NEW_SELF"
-        exec "./$SELF"
+        exec "bash $SELF"
     fi
 	
 	rm "$NEW_SELF"
