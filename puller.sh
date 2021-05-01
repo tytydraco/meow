@@ -60,7 +60,6 @@ download() {
         --embed-thumbnail \
         --add-metadata \
         --match-filter "!is_live" \
-        --output-na-placeholder "" \
         --no-overwrites \
         --no-post-overwrites \
         -o "$OUTPUT_FORMAT" \
