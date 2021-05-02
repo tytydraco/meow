@@ -12,7 +12,7 @@ SELF_URL="https://raw.githubusercontent.com/tytydraco/puller/main/puller.sh"
 
 self_update() {
     curl -Ls "$SELF_URL" > "$NEW_SELF"
-    
+
     if ! cmp -s "$SELF" "$NEW_SELF"
     then
         cp "$NEW_SELF" "$SELF"
@@ -20,7 +20,7 @@ self_update() {
 		chmod +x "./$SELF"
         exec "./$SELF"
     fi
-	
+
 	rm "$NEW_SELF"
 }
 
