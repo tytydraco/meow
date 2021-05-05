@@ -42,7 +42,6 @@ cleanup() {
     rm -f "$ARCHIVE"
     unset URL
     unset FORMAT
-    unset QUALITY
 }
 
 prepare() {
@@ -56,7 +55,7 @@ download() {
         --extract-audio \
         --download-archive "$ARCHIVE" \
         --audio-format "$FORMAT" \
-        --audio-quality "$QUALITY" \
+        --audio-quality 0 \
         --embed-thumbnail \
         --add-metadata \
         --match-filter "!is_live" \

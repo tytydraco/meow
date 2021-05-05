@@ -9,7 +9,6 @@ A youtube-dl wrapper for downloading music on removable media
 ```
 URL="youtube URL here"
 FORMAT="mp3" # or opus, flac, etc
-QUALITY=0 # youtube-dl audio_quality scale
 ```
 
 * Execute puller.sh
