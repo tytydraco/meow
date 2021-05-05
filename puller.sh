@@ -16,12 +16,12 @@ self_update() {
     if ! cmp -s "$SELF" "$NEW_SELF"
     then
         cp "$NEW_SELF" "$SELF"
-		rm "$NEW_SELF"
-		chmod +x "./$SELF"
+        rm "$NEW_SELF"
+        chmod +x "./$SELF"
         exec "./$SELF"
     fi
 
-	rm "$NEW_SELF"
+    rm "$NEW_SELF"
 }
 
 log() {
