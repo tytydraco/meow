@@ -8,7 +8,8 @@ A youtube-dl wrapper for downloading music on removable media
 
 ```
 URL="youtube URL here"
-FORMAT="mp3" # or opus, flac, etc
+FORMAT="mp3"            # or opus, flac, mp4, etc
+VIDEO=0                 # or 1 to use video format
 ```
 
 * Execute puller.sh

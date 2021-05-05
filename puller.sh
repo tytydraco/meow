@@ -10,6 +10,9 @@ OUTPUT_FORMAT="%(title)s $SEP %(id)s.%(ext)s"
 SELF=$(basename "$0")
 SELF_URL="https://raw.githubusercontent.com/tytydraco/puller/main/puller.sh"
 
+# Disable when developing!
+SELF_UPDATE=1
+
 self_update() {
     curl -Ls "$SELF_URL" > "$NEW_SELF"
 
@@ -49,13 +52,27 @@ prepare() {
     source "$CONFIG"
 }
 
-download() {
+download_audio() {
     youtube-dl \
         --ignore-errors \
         --extract-audio \
         --download-archive "$ARCHIVE" \
         --audio-format "$FORMAT" \
         --audio-quality 0 \
+        --embed-thumbnail \
+        --add-metadata \
+        --match-filter "!is_live" \
+        --no-overwrites \
+        --no-post-overwrites \
+        -o "$OUTPUT_FORMAT" \
+        "$URL"
+}
+
+download_video() {
+    youtube-dl \
+        --ignore-errors \
+        --download-archive "$ARCHIVE" \
+        --format "$FORMAT" \
         --embed-thumbnail \
         --add-metadata \
         --match-filter "!is_live" \
@@ -76,7 +93,7 @@ process_folder() {
     generate_archive
 
     log "Downloading..."
-    download
+    [[ "$VIDEO" -eq 1 ]] && download_video || download_audio
 
     log "Cleaning up..."
     cleanup
@@ -86,7 +103,7 @@ process_folder() {
 }
 
 log "Starting self-upgrade..."
-self_update
+[[ "$SELF_UPDATE" -eq 1 ]] && self_update
 
 find . -name "$CONFIG" -type f -printf '%h\n' | while read -r folder
 do
