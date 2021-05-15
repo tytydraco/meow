@@ -45,6 +45,7 @@ cleanup() {
     rm -f "$ARCHIVE"
     unset URL
     unset FORMAT
+    unset VIDEO
 }
 
 prepare() {
