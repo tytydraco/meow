@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-shopt -s globstar
 cd "$(dirname "$0")" || exit 1
 
 ARCHIVE=".archive"
