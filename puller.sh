@@ -54,7 +54,7 @@ cleanup() {
 }
 
 prepare() {
-    # shellcheck source=/dev/null
+    #shellcheck source=/dev/null
     source "$CONFIG"
 }
 
@@ -83,6 +83,7 @@ download() {
     # Only embed thumbnails for supported formats
     [[ "$FORMAT" == @(mp3|m4a|mp4) ]] && args+=( "--embed-thumbnail" )
 
+    #shellcheck disable=SC2068
     youtube-dl ${args[@]} -o "$OUTPUT_FORMAT" "$URL"
 }
 
