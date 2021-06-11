@@ -28,7 +28,7 @@ self_update() {
 }
 
 log() {
-    echo -e "\e[1m\e[93m[*] $*\e[39m\e[0m"
+    echo -e "\e[1m\e[93m * $*\e[39m\e[0m"
 }
 
 generate_archive() {
