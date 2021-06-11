@@ -117,11 +117,11 @@ discover() {
         process_folder "$folder"
 
         log "Backing out..."
-        cd "$root"
+        cd "$root" || return
     done
 }
 
 bootstrap
-discover "."
+discover "${1:-.}"
 
 exit 0
