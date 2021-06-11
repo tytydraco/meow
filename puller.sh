@@ -15,7 +15,11 @@ self_update() {
     local self
     self="$(realpath "$0")"
 
-    curl -Ls "$UPDATE_URL" > ".new"
+    if ! curl -Ls "$UPDATE_URL" > ".new"
+    then
+        log "Update check failed. Skipping..."
+        return
+    fi
 
     if ! cmp -s "$self" ".new"
     then
