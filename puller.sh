@@ -53,34 +53,32 @@ prepare() {
     source "$CONFIG"
 }
 
-download_audio() {
-    youtube-dl \
-        --ignore-errors \
-        --extract-audio \
-        --download-archive "$ARCHIVE" \
-        --audio-format "$FORMAT" \
-        --audio-quality 0 \
-        --embed-thumbnail \
-        --add-metadata \
-        --match-filter "!is_live" \
-        --no-overwrites \
-        --no-post-overwrites \
-        -o "$OUTPUT_FORMAT" \
-        "$URL"
-}
+download() {
+    local args
+    args=(
+        "--ignore-errors"
+        "--download-archive $ARCHIVE"
+        "--add-metadata"
+        "--match-filter !is_live"
+    )
 
-download_video() {
-    youtube-dl \
-        --ignore-errors \
-        --download-archive "$ARCHIVE" \
-        --format "$FORMAT" \
-        --embed-thumbnail \
-        --add-metadata \
-        --match-filter "!is_live" \
-        --no-overwrites \
-        --no-post-overwrites \
-        -o "$OUTPUT_FORMAT" \
-        "$URL"
+    if [[ "$VIDEO" -ne 1 ]]
+    then
+        args+=(
+            "--extract-audio"
+            "--audio-quality 0"
+            "--audio-format $FORMAT"
+        )
+    else
+        args+=(
+            "--format $FORMAT"
+        )
+    fi
+
+    # Only embed thumbnails for supported formats
+    [[ "$FORMAT" == @(mp3|m4a|mp4) ]] && args+=( "--embed-thumbnail" )
+
+    youtube-dl ${args[@]} -o "$OUTPUT_FORMAT" "$URL"
 }
 
 process_folder() {
@@ -94,7 +92,7 @@ process_folder() {
     generate_archive
 
     log "Downloading..."
-    [[ "$VIDEO" -eq 1 ]] && download_video || download_audio
+    download
 
     log "Cleaning up..."
     cleanup
