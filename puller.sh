@@ -4,27 +4,29 @@ cd "$(dirname "$0")" || exit 1
 
 ARCHIVE=".archive"
 CONFIG=".config"
-NEW_SELF='.new'
 SEP="~"
 OUTPUT_FORMAT="%(title)s $SEP %(id)s.%(ext)s"
-SELF=$(basename "$0")
-SELF_URL="https://raw.githubusercontent.com/tytydraco/puller/main/puller.sh"
+UPDATE_URL="https://raw.githubusercontent.com/tytydraco/puller/main/puller.sh"
 
 # Disable when developing!
 SELF_UPDATE=1
 
 self_update() {
-    curl -Ls "$SELF_URL" > "$NEW_SELF"
+    local self
+    self="$(realpath "$0")"
 
-    if ! cmp -s "$SELF" "$NEW_SELF"
+    curl -Ls "$UPDATE_URL" > ".new"
+
+    if ! cmp -s "$self" ".new"
     then
-        cp "$NEW_SELF" "$SELF"
-        rm "$NEW_SELF"
-        chmod +x "./$SELF"
-        exec "./$SELF"
+        log "Updating..."
+        mv ".new" "$self"
+        chmod +x "$self"
+        log "Executing new self..."
+        exec "$self"
     fi
 
-    rm "$NEW_SELF"
+    rm ".new"
 }
 
 log() {
@@ -101,7 +103,7 @@ process_folder() {
 bootstrap() {
     if [[ "$SELF_UPDATE" -eq 1 ]]
     then
-        log "Starting self-upgrade..."
+        log "Checking for updates..."
         self_update
     fi
 }
