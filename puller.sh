@@ -96,17 +96,32 @@ process_folder() {
 
     log "Cleaning up..."
     cleanup
-
-    log "Backing out..."
-    cd ..
 }
 
-log "Starting self-upgrade..."
-[[ "$SELF_UPDATE" -eq 1 ]] && self_update
+bootstrap() {
+    if [[ "$SELF_UPDATE" -eq 1 ]]
+    then
+        log "Starting self-upgrade..."
+        self_update
+    fi
+}
 
-find . -name "$CONFIG" -type f -printf '%h\n' | while read -r folder
-do
-    process_folder "$folder"
-done
+# Takes path to root directory
+discover() {
+    local root
+    root="$(pwd "$1")"
+    log "Discovering in '$1'..."
+
+    find "$root" -name "$CONFIG" -type f -printf '%h\n' | while read -r folder
+    do
+        process_folder "$folder"
+
+        log "Backing out..."
+        cd "$root"
+    done
+}
+
+bootstrap
+discover "."
 
 exit 0
