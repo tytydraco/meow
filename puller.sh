@@ -39,6 +39,8 @@ log() {
 generate_archive() {
     local uid
 
+    rm -f "$ARCHIVE"
+
     for file in *."$FORMAT"
     do
         uid="$(echo "$file" | sed s"/.*$SEP //" | sed "s/.$FORMAT//")"
