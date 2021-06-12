@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-cd "$(dirname "$0")" || exit 1
 
+SELF="$(realpath "$0")"
+SELF_DIR="$(dirname "$SELF")"
 ARGS=("$@")
 ARCHIVE=".archive"
 CONFIG=".config"
@@ -12,22 +13,22 @@ UPDATE_URL="https://raw.githubusercontent.com/tytydraco/puller/main/puller.sh"
 SELF_UPDATE=1
 
 self_update() {
-    local self
-    self="$(realpath "$0")"
+    local newpath
+    newpath="$SELF_DIR/.new"
 
-    if ! curl -Ls "$UPDATE_URL" > ".new"
+    if ! curl -Ls "$UPDATE_URL" > "$newpath"
     then
         log "Update check failed. Skipping..."
         return
     fi
 
-    if ! cmp -s "$self" ".new"
+    if ! cmp -s "$SELF" "$newpath"
     then
         log "Updating..."
-        mv ".new" "$self"
-        chmod +x "$self"
+        mv "$newpath" "$SELF"
+        chmod +x "$SELF"
         log "Executing new self..."
-        exec "$self" "${ARGS[@]}"
+        exec "$SELF" "${ARGS[@]}"
     fi
 
     rm ".new"
