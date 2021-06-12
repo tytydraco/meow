@@ -118,7 +118,7 @@ discover() {
     root="$(pwd "$1")"
     log "Discovering in '$1'..."
 
-    find "$root" -name "$CONFIG" -type f -printf '%h\n' | while read -r folder
+    find "$1" -name "$CONFIG" -type f -printf '%h\n' | while read -r folder
     do
         process_folder "$folder"
 
