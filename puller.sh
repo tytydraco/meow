@@ -19,6 +19,7 @@ self_update() {
     if ! curl -Ls "$UPDATE_URL" > "$newpath"
     then
         log "Update check failed. Skipping..."
+        rm -f "$newpath"
         return
     fi
 
@@ -30,8 +31,6 @@ self_update() {
         log "Executing new self..."
         exec "$SELF" "${ARGS[@]}"
     fi
-
-    rm "$newpath"
 }
 
 log() {
