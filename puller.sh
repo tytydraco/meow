@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 cd "$(dirname "$0")" || exit 1
 
+ARGS=("$@")
 ARCHIVE=".archive"
 CONFIG=".config"
 SEP="~"
@@ -26,7 +27,7 @@ self_update() {
         mv ".new" "$self"
         chmod +x "$self"
         log "Executing new self..."
-        exec "$self"
+        exec "$self" "${ARGS[@]}"
     fi
 
     rm ".new"
