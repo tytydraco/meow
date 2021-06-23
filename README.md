@@ -14,6 +14,9 @@ VIDEO=0                 # or 1 to use video format
 
 * Execute puller.sh
 
+# Debugging
+* If you see "invalid audio format specified", make sure your config file has the proper line endings for your system (LF recommended)
+
 # Features
 - Auto-updating puller scipt
 - Generates archives for existing tracks
