@@ -1,9 +1,8 @@
-# puller
+# meow
 A youtube-dl wrapper for downloading music on removable media
 
 # How-To
 * Setup a directory for each playlist to download
-* Place puller.sh outside of these directories
 * In each directory, create a .config file of this format:
 
 ```
@@ -12,13 +11,14 @@ FORMAT="mp3"            # or opus, flac, mp4, etc
 VIDEO=0                 # or 1 to use video format
 ```
 
-* Execute puller.sh
+* `./meow.sh`, optionally specifying a starting directory (defaults to CWD)
 
 # Debugging
-* If you see "invalid audio format specified", make sure your config file has the proper line endings for your system (LF recommended)
+* If you see "invalid audio format specified", make sure your config file has the proper line endings for your system (LF on Unix, CRLF on Windows)
 
 # Features
-- Auto-updating puller scipt
+- Self-updating puller scipt
 - Generates archives for existing tracks
 - Low-profile
-- Cleanup included
+- Portable
+- Cleans up after itself
