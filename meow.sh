@@ -7,7 +7,7 @@ ARCHIVE=".archive"
 CONFIG=".config"
 SEP="~"
 OUTPUT_FORMAT="%(title)s $SEP %(id)s.%(ext)s"
-UPDATE_URL="https://raw.githubusercontent.com/tytydraco/puller/main/puller.sh"
+UPDATE_URL="https://raw.githubusercontent.com/tytydraco/meow/main/meow.sh"
 
 # Disable when developing!
 SELF_UPDATE=1
