@@ -31,6 +31,8 @@ self_update() {
         log "Executing new self..."
         exec "$SELF" "${ARGS[@]}"
     fi
+
+    rm -f "$newpath"
 }
 
 log() {
