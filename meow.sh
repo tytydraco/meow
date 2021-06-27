@@ -148,17 +148,12 @@ discover() {
   done
 }
 
-# Self update if necessary
-bootstrap() {
-  if [[ "$SELF_UPDATE" -eq 1 ]]
-  then
-    log "Checking for updates..."
-    self_update
-  fi
-}
+if [[ "$SELF_UPDATE" -eq 1 ]]
+then
+  log "Checking for updates..."
+  self_update
+fi
 
-bootstrap
-# Discover from either our CWD or the user-provided path
 discover "${1:-.}"
 
 exit 0
