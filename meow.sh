@@ -83,37 +83,36 @@ download_url() {
   local args
   args=(
     "--ignore-errors"
-    "--download-archive $ARCHIVE"
+    "--download-archive" "$ARCHIVE"
     "--add-metadata"
-    "--match-filter !is_live"
+    "--match-filter" "!is_live"
   )
 
   if [[ "$VIDEO" -ne 1 ]]
   then
     args+=(
       "--extract-audio"
-      "--audio-quality 0"
-      "--audio-format $FORMAT"
+      "--audio-quality" "0"
+      "--audio-format" "$FORMAT"
     )
   else
     args+=(
-      "--format $FORMAT"
+      "--format" "$FORMAT"
     )
   fi
 
   if [[ "$FEATURE_ARIA2" == true ]]
   then
     args+=(
-      "--external-downloader aria2c"
-      "--external-downloader-args '-j 3 -x 3 -s 3 -k 1M'"
+      "--external-downloader" "aria2c"
+      "--external-downloader-args" "-j 3 -x 3 -s 3 -k 1M"
     )
   fi
 
   # Only embed thumbnails for supported formats
   [[ "$FORMAT" == @(mp3|m4a|mp4) ]] && args+=("--embed-thumbnail")
 
-  #shellcheck disable=SC2068
-  youtube-dl ${args[@]} -o "$OUTPUT_FORMAT" "$1"
+  youtube-dl "${args[@]}" -o "$OUTPUT_FORMAT" "$1"
 }
 
 # Enter and process a directory
@@ -160,7 +159,7 @@ discover() {
 
 # Determine which FEATURE_* flags to enable based on the host system
 determine_features() {
-  command -v aria2 &> /dev/null && FEATURE_ARIA2=true
+  command -v aria2c &> /dev/null && FEATURE_ARIA2=true
 }
 
 if [[ "$SELF_UPDATE" -eq 1 ]]
