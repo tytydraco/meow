@@ -49,7 +49,7 @@ generate_archive() {
 
   for file in *."$FORMAT"
   do
-    uid="$(echo "$file" | sed "s/.*$SEP //" | sed "s/.$FORMAT//")"
+    uid="$(echo "$file" | sed "s/.*$SEP //; s/.$FORMAT//")"
     echo "youtube $uid" >> "$ARCHIVE"
   done
 }
