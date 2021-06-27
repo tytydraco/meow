@@ -24,15 +24,13 @@ self_update() {
   local new_path
   new_path="$SELF_DIR/.new"
 
-  if ! curl -Ls "$UPDATE_URL" >"$new_path"
-  then
+  if ! curl -Ls "$UPDATE_URL" >"$new_path"; then
     log "Update check failed. Skipping..."
     rm -f "$new_path"
     return
   fi
 
-  if ! cmp -s "$SELF" "$new_path"
-  then
+  if ! cmp -s "$SELF" "$new_path"; then
     log "Updating..."
     mv "$new_path" "$SELF"
     chmod +x "$SELF"
@@ -44,13 +42,12 @@ self_update() {
 }
 
 # Generate a youtube-dl archive for all the files that already exist
-generate_archive() {
+update_archives() {
   local uid
 
-  for file in *."$FORMAT"
-  do
+  for file in *."$FORMAT"; do
     uid="$(echo "$file" | sed "s/.*$SEP //" | sed "s/.$FORMAT//")"
-    echo "youtube $uid" >> "$ARCHIVE"
+    echo "youtube $uid" >>"$ARCHIVE"
   done
 }
 
@@ -58,10 +55,8 @@ generate_archive() {
 # 1) Either the variable is an array of URLs
 # 2) Or the variable is a single URL
 download() {
-  if [[ "$(declare -p URL)" =~ "declare -a" ]]
-  then
-    for url in "${URL[@]}"
-    do
+  if [[ "$(declare -p URL)" =~ "declare -a" ]]; then
+    for url in "${URL[@]}"; do
       download_url "$url"
     done
   else
@@ -80,8 +75,7 @@ download_url() {
     "--match-filter !is_live"
   )
 
-  if [[ "$VIDEO" -ne 1 ]]
-  then
+  if [[ "$VIDEO" -ne 1 ]]; then
     args+=(
       "--extract-audio"
       "--audio-quality 0"
@@ -111,20 +105,19 @@ process_folder() {
   #shellcheck source=/dev/null
   source "$CONFIG"
 
-  log "Generating archives..."
-  generate_archive
+  log "Updating archives..."
+  update_archives
 
   log "Downloading..."
   download
 
   log "Cleaning up..."
-  rm -f "$ARCHIVE"
   unset URL
   unset FORMAT
   unset VIDEO
 
   log "Backing out..."
-  cd - > /dev/null || return
+  cd - >/dev/null || return
 }
 
 # Discover and process folders recursively from a starting path
@@ -132,16 +125,14 @@ process_folder() {
 discover() {
   log "Discovering in '$1'..."
 
-  find "$1" -name "$CONFIG" -type f -printf '%h\n' | while read -r folder
-  do
+  find "$1" -name "$CONFIG" -type f -printf '%h\n' | while read -r folder; do
     process_folder "$folder"
   done
 }
 
 # Self update if necessary
 bootstrap() {
-  if [[ "$SELF_UPDATE" -eq 1 ]]
-  then
+  if [[ "$SELF_UPDATE" -eq 1 ]]; then
     log "Checking for updates..."
     self_update
   fi
