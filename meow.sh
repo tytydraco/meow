@@ -41,12 +41,9 @@ self_update() {
   rm -f "$new_path"
 }
 
-# Generate a youtube-dl archive for all the files that
-# already exist
+# Generate a youtube-dl archive for all the files that already exist
 generate_archive() {
   local uid
-
-  rm -f "$ARCHIVE"
 
   for file in *."$FORMAT"; do
     uid="$(echo "$file" | sed s"/.*$SEP //" | sed "s/.$FORMAT//")"
@@ -54,7 +51,7 @@ generate_archive() {
   done
 }
 
-# Parses the URL environmental variable and downloads it accordingly.
+# Parses the URL environmental variable and downloads it accordingly
 # 1) Either the variable is an array of URLs
 # 2) Or the variable is a single URL
 download() {
@@ -70,7 +67,6 @@ download() {
 }
 
 # Downloads a URL
-# Requires config to be sourced
 # Arguments: <URL>
 download_url() {
   local args
