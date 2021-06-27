@@ -9,6 +9,8 @@ SEP="~"
 OUTPUT_FORMAT="%(title)s $SEP %(id)s.%(ext)s"
 UPDATE_URL="https://raw.githubusercontent.com/tytydraco/meow/main/meow.sh"
 
+FEATURE_ARIA2=false
+
 # Disable when developing!
 SELF_UPDATE=1
 
@@ -99,6 +101,14 @@ download_url() {
     )
   fi
 
+  if [[ "$FEATURE_ARIA2" == true ]]
+  then
+    args+=(
+      "--external-downloader aria2c"
+      "--external-downloader-args '-j 3 -x 3 -s 3 -k 1M'"
+    )
+  fi
+
   # Only embed thumbnails for supported formats
   [[ "$FORMAT" == @(mp3|m4a|mp4) ]] && args+=("--embed-thumbnail")
 
@@ -148,12 +158,18 @@ discover() {
   done
 }
 
+# Determine which FEATURE_* flags to enable based on the host system
+determine_features() {
+  command -v aria2 &> /dev/null && FEATURE_ARIA2=true
+}
+
 if [[ "$SELF_UPDATE" -eq 1 ]]
 then
   log "Checking for updates..."
   self_update
 fi
 
+determine_features
 discover "${1:-.}"
 
 exit 0
