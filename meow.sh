@@ -41,12 +41,6 @@ self_update() {
   rm -f "$new_path"
 }
 
-# Source the config file to load the appropriate variables
-prepare() {
-  #shellcheck source=/dev/null
-  source "$CONFIG"
-}
-
 # Generate a youtube-dl archive for all the files that
 # already exist
 generate_archive() {
@@ -106,14 +100,6 @@ download_url() {
   youtube-dl ${args[@]} -o "$OUTPUT_FORMAT" "$1"
 }
 
-# Delete the archive file and unset our configs
-cleanup() {
-  rm -f "$ARCHIVE"
-  unset URL
-  unset FORMAT
-  unset VIDEO
-}
-
 # Enter and process a directory
 # Sources configs, generates archives, downloads, and cleans up
 # Arguments: <PATH>
@@ -122,7 +108,8 @@ process_folder() {
   cd "$1" || return
 
   log "Sourcing configuration..."
-  prepare
+  #shellcheck source=/dev/null
+  source "$CONFIG"
 
   log "Generating archives..."
   generate_archive
@@ -131,7 +118,10 @@ process_folder() {
   download
 
   log "Cleaning up..."
-  cleanup
+  rm -f "$ARCHIVE"
+  unset URL
+  unset FORMAT
+  unset VIDEO
 
   log "Backing out..."
   cd - > /dev/null || return
