@@ -45,8 +45,9 @@ self_update() {
 generate_archive() {
   local uid
 
-  for file in *."$FORMAT"; do
-    uid="$(echo "$file" | sed s"/.*$SEP //" | sed "s/.$FORMAT//")"
+  for file in *."$FORMAT"
+  do
+    uid="$(echo "$file" | sed "s/.*$SEP //" | sed "s/.$FORMAT//")"
     echo "youtube $uid" >> "$ARCHIVE"
   done
 }
