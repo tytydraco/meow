@@ -10,7 +10,7 @@ OUTPUT_FORMAT="%(title)s $SEP %(id)s.%(ext)s"
 UPDATE_URL="https://raw.githubusercontent.com/tytydraco/meow/main/meow.sh"
 
 # Disable when developing!
-SELF_UPDATE=0
+SELF_UPDATE=1
 
 # Print a message to the user
 # Arguments: <MESSAGE>
