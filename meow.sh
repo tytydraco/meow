@@ -134,7 +134,7 @@ process_folder() {
   cleanup
 
   log "Backing out..."
-  cd "$OLDCWD" || return
+  cd - > /dev/null || return
 }
 
 # Discover and process folders recursively from a starting path
