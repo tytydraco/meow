@@ -13,26 +13,26 @@ UPDATE_URL="https://raw.githubusercontent.com/tytydraco/meow/main/meow.sh"
 SELF_UPDATE=1
 
 self_update() {
-    local newpath
-    newpath="$SELF_DIR/.new"
+    local new_path
+    new_path="$SELF_DIR/.new"
 
-    if ! curl -Ls "$UPDATE_URL" > "$newpath"
+    if ! curl -Ls "$UPDATE_URL" > "$new_path"
     then
         log "Update check failed. Skipping..."
-        rm -f "$newpath"
+        rm -f "$new_path"
         return
     fi
 
-    if ! cmp -s "$SELF" "$newpath"
+    if ! cmp -s "$SELF" "$new_path"
     then
         log "Updating..."
-        mv "$newpath" "$SELF"
+        mv "$new_path" "$SELF"
         chmod +x "$SELF"
         log "Executing new self..."
         exec "$SELF" "${ARGS[@]}"
     fi
 
-    rm -f "$newpath"
+    rm -f "$new_path"
 }
 
 log() {
