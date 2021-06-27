@@ -6,7 +6,7 @@ A youtube-dl wrapper for downloading music on removable media
 * In each directory, create a .config file of this format:
 
 ```
-URL="youtube URL here"
+URL="youtube URL here"	# or an array of URLs
 FORMAT="mp3"            # or opus, flac, mp4, etc
 VIDEO=0                 # or 1 to use video format
 ```
