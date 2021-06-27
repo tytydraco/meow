@@ -18,6 +18,12 @@ log() {
   echo -e "\e[1m\e[93m * $*\e[39m\e[0m"
 }
 
+# Print an error message to the user
+# Arguments: <MESSAGE>
+err() {
+  echo -e "\e[1m\e[31m ! $*\e[39m\e[0m"
+}
+
 # Replaces self with an updated version if available,
 # then restart it with the same arguments
 self_update() {
@@ -110,12 +116,16 @@ process_folder() {
   log "Sourcing configuration..."
   #shellcheck source=/dev/null
   source "$CONFIG"
+  if [[ -z "$URL" || -z "$FORMAT" || -z "$VIDEO" ]]
+  then
+    err "Configuration incomplete. Skipping..."
+  else
+    log "Generating archives..."
+    generate_archive
 
-  log "Generating archives..."
-  generate_archive
-
-  log "Downloading..."
-  download
+    log "Downloading..."
+    download
+  fi
 
   log "Cleaning up..."
   rm -f "$ARCHIVE"
