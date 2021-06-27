@@ -24,13 +24,15 @@ self_update() {
   local new_path
   new_path="$SELF_DIR/.new"
 
-  if ! curl -Ls "$UPDATE_URL" >"$new_path"; then
+  if ! curl -Ls "$UPDATE_URL" >"$new_path"
+  then
     log "Update check failed. Skipping..."
     rm -f "$new_path"
     return
   fi
 
-  if ! cmp -s "$SELF" "$new_path"; then
+  if ! cmp -s "$SELF" "$new_path"
+  then
     log "Updating..."
     mv "$new_path" "$SELF"
     chmod +x "$SELF"
@@ -78,7 +80,8 @@ download_url() {
     "--match-filter !is_live"
   )
 
-  if [[ "$VIDEO" -ne 1 ]]; then
+  if [[ "$VIDEO" -ne 1 ]]
+  then
     args+=(
       "--extract-audio"
       "--audio-quality 0"
@@ -129,14 +132,16 @@ process_folder() {
 discover() {
   log "Discovering in '$1'..."
 
-  find "$1" -name "$CONFIG" -type f -printf '%h\n' | while read -r folder; do
+  find "$1" -name "$CONFIG" -type f -printf '%h\n' | while read -r folder
+  do
     process_folder "$folder"
   done
 }
 
 # Self update if necessary
 bootstrap() {
-  if [[ "$SELF_UPDATE" -eq 1 ]]; then
+  if [[ "$SELF_UPDATE" -eq 1 ]]
+  then
     log "Checking for updates..."
     self_update
   fi
