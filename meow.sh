@@ -45,7 +45,7 @@ self_update() {
     mv "$new_path" "$SELF"
     chmod +x "$SELF"
     log "Executing new self..."
-    exec "$SELF" "${ARGS[@]}"
+    exec "$SHELL" "$SELF" "${ARGS[@]}"
   fi
 
   rm -f "$new_path"
