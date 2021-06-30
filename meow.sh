@@ -54,12 +54,15 @@ self_update() {
 # Generate a youtube-dl archive for all the files that already exist
 generate_archive() {
   local uid
+  local archive
 
   for file in *."$FORMAT"
   do
     uid="$(echo "$file" | sed "s/.*$SEP //; s/.$FORMAT//")"
-    echo "youtube $uid" >> "$ARCHIVE"
+    archive+=("youtube $uid")
   done
+
+  printf "%s\n" "${archive[@]}" > "$ARCHIVE"
 }
 
 # Parses the URL environmental variable and downloads it accordingly
