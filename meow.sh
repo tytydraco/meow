@@ -2,6 +2,7 @@
 
 SELF="$(realpath "$0")"
 SELF_DIR="$(dirname "$SELF")"
+_SHELL="${SHELL:-bash}"
 ARGS=("$@")
 ARCHIVE=".archive"
 CONFIG=".config"
@@ -45,7 +46,7 @@ self_update() {
     mv "$new_path" "$SELF"
     chmod +x "$SELF"
     log "Executing new self..."
-    exec "$SHELL" "$SELF" "${ARGS[@]}"
+    exec "$_SHELL" "$SELF" "${ARGS[@]}"
   fi
 
   rm -f "$new_path"
