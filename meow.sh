@@ -92,7 +92,7 @@ download_url() {
     "--match-filter" "!is_live"
   )
 
-  if [[ "$VIDEO" -ne 1 ]]
+  if [[ "$VIDEO" != "true" ]]
   then
     args+=(
       "--extract-audio"
