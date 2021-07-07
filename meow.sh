@@ -129,7 +129,7 @@ process_folder() {
   log "Sourcing configuration..."
   #shellcheck source=/dev/null
   source "$CONFIG"
-  if [[ -z "$URL" || -z "$FORMAT" || -z "$VIDEO" ]]
+  if [[ -z "$URL" || -z "$FORMAT" ]]
   then
     err "Configuration incomplete. Skipping..."
   else
