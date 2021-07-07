@@ -8,7 +8,7 @@ A youtube-dl wrapper for downloading music on removable media
 ```
 URL="youtube URL here"	# or an array of URLs
 FORMAT="mp3"            # or opus, flac, mp4, etc
-VIDEO=0                 # or 1 to use video format
+VIDEO=false             # (optional) or true to use video format
 ```
 
 * `./meow.sh`, optionally specifying a starting directory (defaults to CWD)
