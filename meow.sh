@@ -119,6 +119,16 @@ download_url() {
   youtube-dl "${args[@]}" -o "$OUTPUT_FORMAT" "$1"
 }
 
+# Remove half-downloaded files from the current directory
+# Includes any file besides the desired output format and the config file
+clean_orphans() {
+  find . \
+    -type f \
+    ! -name "*.$FORMAT" \
+    ! -name "$CONFIG" \
+    -exec rm "{}" \;
+}
+
 # Enter and process a directory
 # Sources configs, generates archives, downloads, and cleans up
 # Arguments: <PATH>
@@ -141,7 +151,7 @@ process_folder() {
   fi
 
   log "Cleaning up..."
-  rm -f "$ARCHIVE"
+  clean_orphans
   unset URL
   unset FORMAT
   unset VIDEO
