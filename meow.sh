@@ -9,6 +9,7 @@ CONFIG=".config"
 SEP="~"
 OUTPUT_FORMAT="%(title)s $SEP %(id)s.%(ext)s"
 UPDATE_URL="https://raw.githubusercontent.com/tytydraco/meow/main/meow.sh"
+ENV_VARIABLES=("URL" "FORMAT" "VIDEO")
 
 FEATURE_ARIA2=false
 
@@ -152,9 +153,11 @@ process_folder() {
 
   log "Cleaning up..."
   clean_orphans
-  unset URL
-  unset FORMAT
-  unset VIDEO
+
+  for env_var in "${ENV_VARIABLES[@]}"
+  do
+    unset "$env_var"
+  done
 
   log "Backing out..."
   cd - > /dev/null || return
