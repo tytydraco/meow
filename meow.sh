@@ -9,7 +9,7 @@ CONFIG=".config"
 SEP="~"
 OUTPUT_FORMAT="%(title)s $SEP %(id)s.%(ext)s"
 UPDATE_URL="https://raw.githubusercontent.com/tytydraco/meow/main/meow.sh"
-ENV_VARIABLES=("URL" "FORMAT" "VIDEO")
+ENV_VARIABLES=("URL" "FORMAT" "VIDEO" "PPARGS")
 
 FEATURE_ARIA2=false
 
@@ -105,6 +105,8 @@ download_url() {
       "--format" "$FORMAT"
     )
   fi
+
+  [[ -n "$PPARGS" ]] && args+=("--postprocessor-args" "$PPARGS")
 
   if [[ "$FEATURE_ARIA2" == true ]]
   then
