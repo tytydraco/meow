@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+shopt -s globstar
+
 SELF="$(realpath "$0")"
 SELF_DIR="$(dirname "$SELF")"
 _SHELL="${SHELL:-bash}"
@@ -125,11 +127,8 @@ download_url() {
 
 # Remove half-downloaded files from the current directory
 clean_orphans() {
-  find . \
-    -type f \
-    -name "*.part" \
-    -name "$ARCHIVE" \
-    -exec rm "{}" \;
+  rm -- **/"$ARCHIVE"
+  rm -- **/*.part
 }
 
 # Enter and process a directory
@@ -168,10 +167,13 @@ process_folder() {
 # Discover and process folders recursively from a starting path
 # Arguments: <PATH>
 discover() {
+  local folder
+
   log "Discovering in '$1'..."
 
-  find "$1" -name "$CONFIG" -type f -printf '%h\n' | while read -r folder
+  for config in "$1"/**/"$CONFIG"
   do
+    folder="$(dirname "$config")"
     process_folder "$folder"
   done
 }
