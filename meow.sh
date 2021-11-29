@@ -127,8 +127,8 @@ download_url() {
 
 # Remove half-downloaded files from the current directory
 clean_orphans() {
-  rm -- **/"$ARCHIVE"
-  rm -- **/*.part
+  rm -f -- **/"$ARCHIVE"
+  rm -f -- **/*.part
 }
 
 # Enter and process a directory
