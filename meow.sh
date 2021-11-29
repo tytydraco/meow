@@ -16,7 +16,7 @@ ENV_VARIABLES=("URL" "FORMAT" "VIDEO" "PPARGS" "COOKIES")
 FEATURE_ARIA2=false
 
 # Disable when developing!
-SELF_UPDATE=1
+SELF_UPDATE=true
 
 # Print a message to the user
 # Arguments: <MESSAGE>
@@ -183,7 +183,7 @@ determine_features() {
   command -v aria2c &> /dev/null && FEATURE_ARIA2=true
 }
 
-if [[ "$SELF_UPDATE" -eq 1 ]]
+if [[ "$SELF_UPDATE" == "true" ]]
 then
   log "Checking for updates..."
   self_update
