@@ -124,12 +124,10 @@ download_url() {
 }
 
 # Remove half-downloaded files from the current directory
-# Includes any file besides the desired output format and the config file
 clean_orphans() {
   find . \
     -type f \
-    ! -name "*.$FORMAT" \
-    ! -name "$CONFIG" \
+    -name "*.part" \
     -exec rm "{}" \;
 }
 
