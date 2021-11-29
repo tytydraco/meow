@@ -128,6 +128,7 @@ clean_orphans() {
   find . \
     -type f \
     -name "*.part" \
+    -name "$ARCHIVE" \
     -exec rm "{}" \;
 }
 
