@@ -100,11 +100,6 @@ download_url() {
     args+=(
       "--extract-audio"
       "--audio-quality" "0"
-      "--audio-format" "$FORMAT"
-    )
-  else
-    args+=(
-      "--format" "$FORMAT"
     )
   fi
 
