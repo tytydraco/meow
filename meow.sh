@@ -11,7 +11,7 @@ CONFIG=".config"
 SEP="~"
 OUTPUT_FORMAT="%(title)s $SEP %(id)s.%(ext)s"
 UPDATE_URL="https://raw.githubusercontent.com/tytydraco/meow/main/meow.sh"
-ENV_VARIABLES=("URL" "FORMAT" "VIDEO" "PPARGS" "COOKIES")
+ENV_VARIABLES=("URL" "VIDEO" "PPARGS" "COOKIES")
 
 FEATURE_ARIA2=false
 
