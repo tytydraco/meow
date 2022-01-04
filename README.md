@@ -7,7 +7,6 @@ A youtube-dl wrapper for downloading music on removable media
 
 ```
 URL="youtube URL here"	# or an array of URLs
-FORMAT="mp3"            # or opus, flac, mp4, etc
 VIDEO=false             # (optional) or true to use video format
 PPARGS="-b:a 20K"       # (optional) post-processor arguments for ffmpeg
 ```
