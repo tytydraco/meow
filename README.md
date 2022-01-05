@@ -6,6 +6,8 @@ A youtube-dl wrapper for downloading music on removable media
 * In each directory, create a .config file of this format:
 
 ```
+BINARY=youtube-dl       # (optional) binary to use for youtube-dl
+COOKIES=../cookies.txt  # (optional) path to cookies file to download restricted videos
 URL="youtube URL here"	# or an array of URLs
 VIDEO=false             # (optional) or true to use video format
 PPARGS="-b:a 20K"       # (optional) post-processor arguments for ffmpeg

@@ -11,8 +11,9 @@ CONFIG=".config"
 SEP="~"
 OUTPUT_FORMAT="%(title)s $SEP %(id)s.%(ext)s"
 UPDATE_URL="https://raw.githubusercontent.com/tytydraco/meow/main/meow.sh"
-ENV_VARIABLES=("COOKIES" "PPARGS" "URL" "VIDEO")
+ENV_VARIABLES=("BINARY" "COOKIES" "PPARGS" "URL" "VIDEO")
 
+BINARY="youtube-dl"
 FEATURE_ARIA2=false
 
 # Disable when developing!
@@ -117,7 +118,7 @@ download_url() {
   # Only embed thumbnails for supported formats
   [[ "$FORMAT" == @(mp3|m4a|mp4) ]] && args+=("--embed-thumbnail")
 
-  youtube-dl "${args[@]}" -o "$OUTPUT_FORMAT" "$1"
+  "$BINARY" "${args[@]}" -o "$OUTPUT_FORMAT" "$1"
 }
 
 # Remove half-downloaded files from the current directory
