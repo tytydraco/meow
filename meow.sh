@@ -61,9 +61,10 @@ generate_archive() {
   local uid
   local archive
 
-  for file in *."$FORMAT"
+  # Find files in the format of "name sep id.ext"
+  for file in *"$SEP"*.*
   do
-    uid="$(echo "$file" | sed "s/.*$SEP //; s/.$FORMAT//")"
+    uid="$(echo "$file" | sed "s/.*$SEP //; s/\..*//")"
     archive+=("youtube $uid")
   done
 
