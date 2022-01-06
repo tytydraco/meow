@@ -115,9 +115,6 @@ download_url() {
     )
   fi
 
-  # Only embed thumbnails for supported formats
-  [[ "$FORMAT" == @(mp3|m4a|mp4) ]] && args+=("--embed-thumbnail")
-
   "${BINARY:-"$DEFAULT_BINARY"}" "${args[@]}" -o "$OUTPUT_FORMAT" "$1"
 }
 
