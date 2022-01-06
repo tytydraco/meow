@@ -11,7 +11,7 @@ CONFIG=".config"
 SEP="~"
 OUTPUT_FORMAT="%(title)s $SEP %(id)s.%(ext)s"
 UPDATE_URL="https://raw.githubusercontent.com/tytydraco/meow/main/meow.sh"
-ENV_VARIABLES=("BINARY" "COOKIES" "PPARGS" "URL" "VIDEO")
+ENV_VARIABLES=("BINARY" "COOKIES" "URL" "VIDEO")
 
 DEFAULT_BINARY="youtube-dl"
 FEATURE_ARIA2=false
@@ -105,7 +105,6 @@ download_url() {
     )
   fi
 
-  [[ -n "$PPARGS" ]] && args+=("--postprocessor-args" "$PPARGS")
   [[ -n "$COOKIES" ]] && args+=("--cookies" "$COOKIES")
 
   if [[ "$FEATURE_ARIA2" == true ]]
