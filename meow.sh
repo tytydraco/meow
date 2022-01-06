@@ -132,9 +132,11 @@ process_folder() {
   cd "$1" || return
 
   log "Sourcing configuration..."
+
   #shellcheck source=/dev/null
   source "$CONFIG"
-  if [[ -z "$URL" || -z "$FORMAT" ]]
+
+  if [[ -z "$URL" ]]
   then
     err "Configuration incomplete. Skipping..."
   else
