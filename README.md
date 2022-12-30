@@ -8,6 +8,7 @@ A youtube-dl wrapper for downloading music on removable media
 ```
 BINARY=youtube-dl       # (optional) binary to use for youtube-dl
 COOKIES=../cookies.txt  # (optional) path to cookies file to download restricted videos
+FORMAT=mp3              # (optional) audio format to use; best by default
 URL="youtube URL here"	# or an array of URLs
 VIDEO=false             # (optional) or true to use video format
 ```
